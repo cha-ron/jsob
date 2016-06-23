@@ -39,21 +39,21 @@ def object(value, tuple_list, cast_keys_to_string):
             type_json_value(key, str)
         values = map(json_try_cast, values)
 
-    print(json.dumps(dict(zip(keys, values))))
+    click.echo(json.dumps(dict(zip(keys, values))))
 
 @cli.command()
 @click.argument('element', nargs=-1)
 def array(element):
     """Assemble a JSON array - a square-bracket delimited list of
     JSON-acceptible values, possibly empty."""
-    print(json.dumps(list(map(json_try_cast, element))))
+    click.echo(json.dumps(list(map(json_try_cast, element))))
 
 @cli.command(name="type")
 @click.argument('value', nargs=-1)
 def type_value(value):
     """Display the type of the input JSON values, one per line."""
     for value_type_string in map(type_json_value, value):
-        print(value_type_string)
+        click.echo(value_type_string)
 
 def json_try_cast(value):
     """Attempts to turn the input string (representing a JSON value) into a
